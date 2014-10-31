@@ -1,6 +1,7 @@
 var HashTable = function(){
   this._limit = 8;
   this._storage = makeLimitedArray(this._limit);
+  this._size = 0;
 };
 
 function arrayAtIndexLookup(arrayAtIndex,k){
@@ -17,6 +18,38 @@ function arrayAtIndexLookup(arrayAtIndex,k){
   }
 
   return keyInArray;
+
+}
+
+HashTable.prototype._rehash = function(newLimit){
+
+  this._limit = newLimit || this._limit;
+
+  var tempDataArray = [];
+
+  this._storage.each(function(arrayAtIndex){
+
+    if (Array.isArray(arrayAtIndex)){
+
+      for (var i = 0; i < arrayAtIndex.length; i++){
+
+        tempDataArray.push(arrayAtIndex[i]);
+
+      }
+
+    }
+
+  });
+
+  this._storage = makeLimitedArray(this._limit);
+
+  this._size = 0;
+
+  for (var j = 0; j < tempDataArray.length; j++){
+
+    this.insert.apply(this,tempDataArray[j]);
+
+  }
 
 }
 
@@ -44,6 +77,14 @@ HashTable.prototype.insert = function(k, v){
   }
  
   this._storage.set(i, arrayAtIndex);
+
+  this._size++;
+
+  if (this._size >= this._limit - 1){
+
+    this._rehash(this._limit * 2);
+
+  }
 
 };
 
@@ -77,6 +118,14 @@ HashTable.prototype.remove = function(k){
     var keyInArray = arrayAtIndexLookup(arrayAtIndex,k);
 
     arrayAtIndex.splice(keyInArray, 1);
+
+    this._size--;
+
+    if (this._size <= this._limit / 4 - 1){
+
+      this._rehash(this._limit / 2);
+
+    }
 
   }
 
