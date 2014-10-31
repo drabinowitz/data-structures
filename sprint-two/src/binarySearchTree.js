@@ -24,19 +24,44 @@ binarySearchMethods.insert = function(value){
 
 binarySearchMethods.contains = function(target) {
 
-  var insert = target < this.value ? "left" : "right";
-
   var results = false;
 
   if (this.value === target) {
     return results = true;
-  } else if (this[insert] !== null) {
-    results = this[insert].contains(target);
+  } else {
+
+    if (this.left){
+
+      results = results || this.left.contains(target);
+
+    }
+
+    if (this.right){
+
+      results = results || this.right.contains(target);
+
+    }
+
   }
+
   return results;
 };
 
 binarySearchMethods.depthFirstLog = function(callback) {
+
+  callback(this.value);
+
+  if (this.left){
+
+    this.left.depthFirstLog(callback);
+
+  }
+
+  if (this.right){
+
+    this.right.depthFirstLog(callback);
+
+  }
 
 };
 
