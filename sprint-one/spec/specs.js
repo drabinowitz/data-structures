@@ -1,4 +1,5 @@
 window.variant = document.location.search.slice(1);
+window.qvariant = window.variant;
 
 define([
   'spec/verifyClass.js',
@@ -16,17 +17,64 @@ define([
   mocha.setup('bdd');
   var expect = chai.expect;
 
+  describe('performance of stack and queue', function(){
+   var stack = [];
+    var instantiator = variant === 'pseudoclassical' ? Stack : makeStack;
+    var prototypeOfInstances = variant === 'prototypal' && stackMethods;
+
+    var queue = [];
+    var qinstantiator = qvariant === 'pseudoclassical' ? Queue : makeQueue;
+    var qprototypeOfInstances = qvariant === 'prototypal' && queueMethods;
+
+    var max = 1000000;
+    if(variant === 'pseudoclassical'){
+      for(var i = 0; i < max; i++){
+        stack.push(new instantiator());
+        queue.push(new qinstantiator());
+      }
+    } else {
+      for(var i = 0; i < max; i++){
+        stack.push(instantiator());
+        queue.push(qinstantiator());
+      }
+    }
+  
+    it('tests the performance of stack and queue', function(){
+
+      for (var j = 0; j < 1000000; j++ ){
+
+        stack[j].push(1);
+
+        queue[j].enqueue(1);
+
+        var res = stack[j].pop();
+
+        var qres = queue[j].dequeue();
+
+      }
+
+      expect(1).to.equal(1);
+
+    });
+
+  });
+/*
   describe("stack", function() {
 
-    var stack;
+    var stack = [];
     var instantiator = variant === 'pseudoclassical' ? Stack : makeStack;
     var prototypeOfInstances = variant === 'prototypal' && stackMethods;
 
     beforeEach(function(){
+      var max = 1000000;
       if(variant === 'pseudoclassical'){
-        stack = new instantiator();
+        for(var i = 0; i < max; i++){
+          stack.push(new instantiator());
+        }
       } else {
-        stack = instantiator();
+        for(var i = 0; i < max; i++){
+          stack.push(instantiator());
+        }
       }
     });
 
@@ -159,7 +207,7 @@ define([
       });
     });
 
-  });
+  });*/
 
 
   window.mochaPhantomJS ? mochaPhantomJS.run() : mocha.run();
