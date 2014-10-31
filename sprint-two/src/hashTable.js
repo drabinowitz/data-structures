@@ -21,6 +21,7 @@ function arrayAtIndexLookup(arrayAtIndex,k){
 }
 
 HashTable.prototype.insert = function(k, v){
+  //constant time with a perfact hash; worst case linear
   var i = getIndexBelowMaxForKey(k, this._limit);
 
   var arrayAtIndex = this._storage.get(i);
@@ -47,6 +48,7 @@ HashTable.prototype.insert = function(k, v){
 };
 
 HashTable.prototype.retrieve = function(k){
+  //constant time with a perfact hash; worst case linear
   var i = getIndexBelowMaxForKey(k, this._limit);
 
   var result = null;
@@ -66,10 +68,15 @@ HashTable.prototype.retrieve = function(k){
 };
 
 HashTable.prototype.remove = function(k){
-  
-  if (this.retrieve(k) !== null){
+  //constant time with a perfact hash; worst case linear 
 
-    this.insert(k,null);
+  if (this.retrieve(k) !== null){
+    var i = getIndexBelowMaxForKey(k, this._limit);
+
+    var arrayAtIndex = this._storage.get(i);
+    var keyInArray = arrayAtIndexLookup(arrayAtIndex,k);
+
+    arrayAtIndex.splice(keyInArray, 1);
 
   }
 
