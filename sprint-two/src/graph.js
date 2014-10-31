@@ -4,7 +4,7 @@ var Graph = function(){
 };
 
 Graph.prototype.addNode = function(newNode, toNode){
-
+  //constant time
   if (this._nodeCount === 1) {
     for (var item in this._nodes) {
       if (this._nodes.hasOwnProperty(item)) {
@@ -23,6 +23,7 @@ Graph.prototype.addNode = function(newNode, toNode){
 };
 
 Graph.prototype.contains = function(node){
+  //linear time
   var result = false;
   for (var item in this._nodes){
 
@@ -33,16 +34,19 @@ Graph.prototype.contains = function(node){
 };
 
 Graph.prototype.removeNode = function(node){
+  //constant with respect to nodes and linear with respect to edges
   if (this._nodes[node]){
     for (var item in this._nodes[node].edges){
-      this._nodes.removeEdge(node,item);
+      if (this._nodes.hasOwnProperty(item)) {
+        this._nodes.removeEdge(node,item);
+      }
     }
     delete this._nodes[node];
   }
 };
 
 Graph.prototype.getEdge = function(fromNode, toNode){
-
+  //constant time
   var results = false;
   if (this._nodes[toNode].edges[fromNode]) {
     results = true;
@@ -52,7 +56,7 @@ Graph.prototype.getEdge = function(fromNode, toNode){
 };
 
 Graph.prototype.addEdge = function(fromNode, toNode){
-
+  //constant time
   if (this._nodes[fromNode] && this._nodes[toNode]) {
 
     this._nodes[fromNode].edges[toNode] = this._nodes[toNode];
@@ -65,7 +69,7 @@ Graph.prototype.addEdge = function(fromNode, toNode){
 };
 
 Graph.prototype.removeEdge = function(fromNode, toNode){
-
+  //constant time
   if (this.getEdge(fromNode, toNode)) {
     delete this._nodes[fromNode].edges[toNode];
     delete this._nodes[toNode].edges[fromNode];

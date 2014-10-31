@@ -19,7 +19,7 @@ var extend = function(to,from){
 var treeMethods = {};
 
 treeMethods.addChild = function(value){
-
+  //constant time
   var node = makeTree(value);
 
   this.children.push(node);
@@ -27,7 +27,7 @@ treeMethods.addChild = function(value){
 };
 
 treeMethods.contains = function(target){
-
+  //linear
   var result = false;
 
   var recursiveContains = function(currentNode){

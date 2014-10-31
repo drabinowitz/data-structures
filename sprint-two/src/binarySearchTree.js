@@ -11,7 +11,7 @@ var makeBinarySearchTree = function(value){
 var binarySearchMethods = {};
 
 binarySearchMethods.insert = function(value){
-
+  //average is O(log(n)) but worst case is O(n)
   var insert = value < this.value ? "left" : "right";
 
   if (this[insert] === null) {
@@ -23,7 +23,7 @@ binarySearchMethods.insert = function(value){
 };
 
 binarySearchMethods.contains = function(target) {
-
+  //average is O(log(n)) but worst case is O(n)
   var results = false;
 
   if (this.value === target) {
@@ -48,7 +48,7 @@ binarySearchMethods.contains = function(target) {
 };
 
 binarySearchMethods.depthFirstLog = function(callback) {
-
+  //linear
   callback(this.value);
 
   if (this.left){

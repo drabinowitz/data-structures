@@ -4,6 +4,7 @@ var makeLinkedList = function(){
   list.tail = null;
 
   list.addToTail = function(value){
+    //constant time operation
     if (list.tail === null) {
 
       list.head = {};
@@ -18,6 +19,7 @@ var makeLinkedList = function(){
   };
 
   list.removeHead = function(){
+    //constant time
     var results;
     if (list.head.hasOwnProperty("linkedListNode")) {
       results = list.head.value;
@@ -31,6 +33,7 @@ var makeLinkedList = function(){
   };
 
   list.contains = function(target){
+    //linear time
     var results = false;
     var lLNode;   
     if(list.head !== null){
