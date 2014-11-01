@@ -10,6 +10,72 @@ var makeBinarySearchTree = function(value){
 
 var binarySearchMethods = {};
 
+binarySearchMethods._rebalance = function(){
+
+  var rebalancedValues = [];
+  // var average = 0;
+
+  this.breadthFirstLog(function(value){
+
+    rebalancedValues.push(value);
+    // average += value;
+
+  });
+
+  // average = average / rebalancedValues.length;
+
+  //resetting array:
+  // set this.value equal to first in value in array
+
+  rebalancedValues.sort();
+
+  // set this.left and this.right null
+  this.left = null;
+
+  this.right = null;
+
+  this.value = rebalancedValues.splice(Math.floor(rebalancedValues.length/2),1)[0];
+
+  var recursivelyRebalance = function(){
+
+    var nextSet = [];
+
+    for (var i = 0; i < arguments.length; i++){
+
+      if (arguments[i].length > 0){
+
+        this.insert(arguments[i].splice(Math.floor(arguments[i].length/2),1)[0]);
+
+        if (arguments[i].length > 0){
+
+          nextSet.push(arguments[i]);
+
+        }
+
+      }
+
+    }
+
+  }
+
+  // insert remainder of values
+
+  if (rebalancedValues.length < 3){
+
+    for(var i = 1; i < rebalancedValues.length; i++){
+
+      this.insert(rebalancedValues[i]);
+
+    }
+
+  } else {
+
+
+
+  }
+
+};
+
 binarySearchMethods.insert = function(value){
   //average is O(log(n)) but worst case is O(n)
   var insert = value < this.value ? "left" : "right";

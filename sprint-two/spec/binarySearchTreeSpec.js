@@ -52,4 +52,12 @@ describe('binarySearchTree', function() {
     console.log(array);
     expect(array).to.eql([5,2,6,1,3]);
   });
+
+  it('should rebalance a skewed binary search tree', function(){
+    binarySearchTree.insert(6);
+    binarySearchTree.insert(7);
+    expect(binarySearchTree.value).to.equal(6);
+    expect(binarySearchTree.left.value).to.equal(5);
+    expect(binarySearchTree.right.value).to.equal(7);
+  });
 });
