@@ -65,6 +65,40 @@ binarySearchMethods.depthFirstLog = function(callback) {
 
 };
 
+binarySearchMethods.breadthFirstLog = function(callback) {
+
+  var recursivelyBreadthFirst = function(arrayOfNodes) {
+   var nextArray = [];
+   for (var i = 0; i < arrayOfNodes.length; i++) {
+    callback(arrayOfNodes[i].value);
+    if (arrayOfNodes[i].left) {
+      nextArray.push(arrayOfNodes[i].left);
+    }
+    if (arrayOfNodes[i].right) {
+      nextArray.push(arrayOfNodes[i].right);
+    } 
+   }
+   if (nextArray.length > 0) {
+    recursivelyBreadthFirst(nextArray);
+   }
+  };
+
+  recursivelyBreadthFirst([this]);
+
+  //callback on this left
+
+  //callback on this right
+
+  //callback on this left left
+
+  //callback on this left right
+
+  //callback on this right left
+
+  //callback on this right right
+
+};
+
 /*
  * Complexity: What is the time complexity of the above functions?
  */
