@@ -3,6 +3,8 @@ var makeLinkedList = function(){
   list.head = null;
   list.tail = null;
 
+  //change linkedListNode to node
+
   list.addToTail = function(value){
     //constant time operation
     if (list.tail === null) {
@@ -34,6 +36,7 @@ var makeLinkedList = function(){
 
   list.contains = function(target){
     //linear time
+    //change lLNode to anything better
     var results = false;
     var lLNode;   
     if(list.head !== null){
