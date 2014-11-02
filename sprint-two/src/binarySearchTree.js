@@ -27,7 +27,9 @@ binarySearchMethods._rebalance = function(){
   //resetting array:
   // set this.value equal to first in value in array
 
-  rebalancedValues.sort();
+  rebalancedValues.sort(function(a,b){
+    return a - b;
+  });
 
   // set this.left and this.right null
   this.left = null;
@@ -48,7 +50,11 @@ binarySearchMethods._rebalance = function(){
 
         if (arguments[i].length > 0){
 
-          nextSet.push(arguments[i]);
+          var rightArray = arguments[i].splice(Math.floor(arguments[i].length/2));
+
+          arguments[i].length && nextSet.push(arguments[i]);
+
+          rightArray.length && nextSet.push(rightArray);
 
         }
 
@@ -56,7 +62,17 @@ binarySearchMethods._rebalance = function(){
 
     }
 
+    if (nextSet.length > 0){
+
+      recursivelyRebalance.apply(this,nextSet);
+
+    } 
+
   }
+
+  var rightRebalance = rebalancedValues.splice(Math.floor(rebalancedValues.length/2));
+
+  recursivelyRebalance.apply(this,[rebalancedValues,rightRebalance]);
 
   // insert remainder of values
 

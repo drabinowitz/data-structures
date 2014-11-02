@@ -56,8 +56,19 @@ describe('binarySearchTree', function() {
   it('should rebalance a skewed binary search tree', function(){
     binarySearchTree.insert(6);
     binarySearchTree.insert(7);
-    expect(binarySearchTree.value).to.equal(6);
-    expect(binarySearchTree.left.value).to.equal(5);
-    expect(binarySearchTree.right.value).to.equal(7);
+    binarySearchTree.insert(8);
+    binarySearchTree.insert(9);
+    binarySearchTree.insert(10);
+    binarySearchTree.insert(11);
+    binarySearchTree.insert(12);
+    binarySearchTree._rebalance();
+    expect(binarySearchTree.value).to.equal(9);
+    expect(binarySearchTree.left.value).to.equal(6);
+    expect(binarySearchTree.left.left.value).to.equal(5);
+    expect(binarySearchTree.left.right.value).to.equal(7);
+    expect(binarySearchTree.left.right.right.value).to.equal(8);
+    expect(binarySearchTree.right.value).to.equal(11);
+    expect(binarySearchTree.right.left.value).to.equal(10);
+    expect(binarySearchTree.right.right.value).to.equal(12);
   });
 });
